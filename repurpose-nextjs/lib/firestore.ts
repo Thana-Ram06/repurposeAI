@@ -30,7 +30,8 @@ export async function saveGeneration(
   input: string,
   tone: string,
   output: GenerationRecord["output"]
-): Promise<string> {
+): Promise<string | null> {
+  if (!db) return null;
   const docRef = await addDoc(collection(db, "generations"), {
     userId,
     input,
@@ -42,6 +43,7 @@ export async function saveGeneration(
 }
 
 export async function getUserGenerations(userId: string): Promise<GenerationRecord[]> {
+  if (!db) return [];
   const q = query(
     collection(db, "generations"),
     where("userId", "==", userId),
