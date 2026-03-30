@@ -319,6 +319,17 @@ export default function HomePage() {
           <span style={{ fontWeight: 600, color: "var(--fg)" }}>GenovaAI</span>
         </div>
         <p>© 2026 GenovaAI. Crafted with precision.</p>
+        <p style={{ marginTop: "0.375rem" }}>
+          Made by{" "}
+          <a
+            href="https://x.com/anoinv?s=21"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "var(--primary)", textDecoration: "none", fontWeight: 500 }}
+          >
+            me
+          </a>
+        </p>
       </footer>
     </div>
   );
