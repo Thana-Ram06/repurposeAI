@@ -1,0 +1,219 @@
+Build a full-stack SaaS web application called **"RepurposeAI"** — an AI Content Repurposing Tool.
+
+## 🎯 Core Idea
+
+This app allows users to input text or a YouTube video transcript and automatically generates:
+
+* Twitter (X) threads
+* LinkedIn posts
+* Instagram captions
+* Blog articles
+* Viral hooks
+
+---
+
+## 🧱 Tech Stack (STRICT REQUIREMENTS)
+
+* Framework: Next.js 16 (App Router)
+* Language: TypeScript
+* Styling: Tailwind CSS
+* Fonts:
+
+  * Headings: Instrument Serif
+  * Body: Inter
+* Backend: Next.js API Routes (serverless functions)
+* Auth: Firebase Authentication (Google login)
+* Database: Firestore (store user content history)
+* AI: OpenAI API (GPT-based text generation)
+* Deployment: Vercel-ready (NO custom server, NO Express)
+
+---
+
+## 🎨 UI/UX DESIGN (VERY IMPORTANT)
+
+Design must be premium, minimal, and modern inspired by:
+
+* tpot.cc
+* lnk.ad
+* xscouter.ai
+
+### Design Guidelines:
+
+* Centered layout (max-width ~1100px)
+* Clean whitespace, no clutter
+* Soft borders, minimal shadows
+* Rounded corners (lg)
+* Smooth hover transitions
+* Light + Dark mode toggle
+
+### Hero Section:
+
+* Large heading (Instrument Serif)
+* Subheading (Inter)
+* CTA button (green in dark mode)
+
+---
+
+## 🧩 Main Features
+
+### 1. Landing Page
+
+* Hero section
+* Input box (large textarea)
+* “Generate Content” button
+* Feature highlights section
+* Pricing section (basic placeholder)
+
+---
+
+### 2. Content Generator
+
+User input:
+
+* Text OR pasted transcript
+
+Options:
+
+* Tone selector (Casual / Professional / Viral)
+
+---
+
+### 3. Output Section (Card Grid UI)
+
+Display results in cards:
+
+Each card includes:
+
+* Title (Tweets, LinkedIn, Blog, etc.)
+* Generated content
+* Copy button
+* Regenerate button
+
+Content types:
+
+* 5 Tweets
+* 1 LinkedIn post
+* 1 Blog article (with headings)
+* 5 Hooks
+* 3 Instagram captions
+
+---
+
+### 4. Dashboard (Authenticated)
+
+* User login via Google
+* Show history of generated content
+* Save all outputs in Firestore
+* Simple usage counter
+
+---
+
+## ⚙️ API LOGIC
+
+Create `/api/generate` route:
+
+Input:
+{
+text: string,
+tone: string
+}
+
+Use OpenAI API to generate:
+
+### Prompts:
+
+* Tweets:
+  "Convert the following content into 5 engaging viral tweets..."
+
+* LinkedIn:
+  "Write a professional LinkedIn post with storytelling..."
+
+* Blog:
+  "Write a detailed SEO-friendly blog with headings..."
+
+* Hooks:
+  "Generate 5 viral hooks from this content..."
+
+* Instagram:
+  "Write 3 engaging Instagram captions..."
+
+Return structured JSON:
+{
+tweets: [],
+linkedin: "",
+blog: "",
+hooks: [],
+captions: []
+}
+
+---
+
+## 🔐 Firebase Integration
+
+* Setup Firebase client
+* Google Auth login
+* Firestore collections:
+  users
+  generations
+
+Each generation:
+
+* userId
+* input text
+* output JSON
+* timestamp
+
+---
+
+## 🌙 Theme System
+
+* Light mode (white background)
+* Dark mode (soft gray/black)
+* Toggle button
+* Maintain readability and contrast
+
+---
+
+## 📁 Folder Structure (IMPORTANT)
+
+Use clean scalable structure:
+
+/app
+/page.tsx (landing)
+/dashboard
+/components
+InputBox.tsx
+OutputCard.tsx
+Navbar.tsx
+/lib
+firebase.ts
+openai.ts
+/api
+/generate/route.ts
+/styles
+
+---
+
+## ✨ Extra UX Details
+
+* Loading state (spinner or skeleton)
+* Disable button while generating
+* Smooth fade-in for results
+* Toast notification on copy
+
+---
+
+## ⚠️ Constraints
+
+* DO NOT use Express or custom backend
+* MUST be deployable on Vercel without changes
+* Use environment variables for API keys
+* Keep code clean and production-ready
+
+---
+
+## 🚀 Final Goal
+
+A polished, premium SaaS web app that feels like a real startup product, not a basic demo.
+
+Make the UI visually impressive, minimal, and modern.

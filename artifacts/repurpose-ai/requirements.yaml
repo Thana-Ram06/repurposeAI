@@ -1,0 +1,12 @@
+packages:
+  "framer-motion": "For premium smooth page transitions and micro-interactions"
+  "lucide-react": "For beautiful consistent icons"
+
+images:
+  - path: "artifacts/repurpose-ai/public/images/hero-bg.png"
+    description: "Deep dark abstract background with subtle green neon light leaks and glassmorphism elements, minimal, high-end SaaS, dark mode"
+    aspect_ratio: "16:9"
+
+notes:
+  - Assumes @workspace/api-client-react exposes useGenerateContent and useGetHistory
+  - Assumes standard dark mode environment. Setting colors on :root to enforce pure dark theme.
