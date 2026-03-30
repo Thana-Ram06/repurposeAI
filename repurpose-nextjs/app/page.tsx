@@ -316,9 +316,9 @@ export default function HomePage() {
       <footer style={{ borderTop: "1px solid var(--border)", padding: "2rem 1.5rem", textAlign: "center", color: "var(--muted)", fontSize: "0.875rem" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
           <Sparkles size={13} color="var(--primary)" />
-          <span style={{ fontWeight: 600, color: "var(--fg)" }}>GenovaAI</span>
+          <span style={{ fontWeight: 600, color: "var(--fg)" }}>ZenoAI</span>
         </div>
-        <p>© 2026 GenovaAI. Crafted with precision.</p>
+        <p>© 2026 ZenoAI. Crafted with precision.</p>
         <p style={{ marginTop: "0.375rem" }}>
           Made by{" "}
           <a

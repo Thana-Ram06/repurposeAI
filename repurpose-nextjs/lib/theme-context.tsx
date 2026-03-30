@@ -19,7 +19,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("genova-theme") as Theme | null;
+    const stored = localStorage.getItem("zeno-theme") as Theme | null;
     const initial = stored ?? "dark";
     setTheme(initial);
     document.documentElement.setAttribute("data-theme", initial);
@@ -29,7 +29,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const toggleTheme = () => {
     const next: Theme = theme === "dark" ? "light" : "dark";
     setTheme(next);
-    localStorage.setItem("genova-theme", next);
+    localStorage.setItem("zeno-theme", next);
     document.documentElement.setAttribute("data-theme", next);
   };
 

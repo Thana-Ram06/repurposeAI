@@ -7,11 +7,11 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "GenovaAI — Turn Any Content Into Viral Gold",
+  title: "ZenoAI — Turn Any Content Into Viral Gold",
   description:
     "Instantly repurpose any text or transcript into Twitter threads, LinkedIn posts, blog articles, viral hooks, and Instagram captions using advanced AI.",
   openGraph: {
-    title: "GenovaAI — Turn Any Content Into Viral Gold",
+    title: "ZenoAI — Turn Any Content Into Viral Gold",
     description: "The ultimate AI content repurposing tool for creators and marketers.",
     type: "website",
   },
@@ -32,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: `
               (function() {
                 try {
-                  var t = localStorage.getItem('genova-theme') || 'dark';
+                  var t = localStorage.getItem('zeno-theme') || 'dark';
                   document.documentElement.setAttribute('data-theme', t);
                 } catch(e) {}
               })();

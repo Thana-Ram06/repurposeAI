@@ -55,7 +55,7 @@ export default function Navbar() {
             <Sparkles size={14} color="#000" />
           </div>
           <span style={{ fontWeight: 700, fontSize: "1rem", color: "var(--fg)" }}>
-            GenovaAI
+            ZenoAI
           </span>
         </Link>
 
