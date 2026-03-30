@@ -52,21 +52,11 @@ export default function HomePage() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--color-background)" }}>
+    <div style={{ minHeight: "100vh", background: "var(--bg)", transition: "background 0.2s ease" }}>
       <Navbar />
 
       {/* Hero */}
-      <section
-        style={{
-          position: "relative",
-          padding: "6rem 1.5rem 5rem",
-          maxWidth: "860px",
-          margin: "0 auto",
-          textAlign: "center",
-          overflow: "hidden",
-        }}
-      >
-        {/* Background glow */}
+      <section style={{ position: "relative", padding: "6rem 1.5rem 5rem", maxWidth: "860px", margin: "0 auto", textAlign: "center" }}>
         <div
           style={{
             position: "absolute",
@@ -75,7 +65,7 @@ export default function HomePage() {
             transform: "translateX(-50%)",
             width: "600px",
             height: "400px",
-            background: "radial-gradient(ellipse, rgba(34,197,94,0.08) 0%, transparent 70%)",
+            background: "radial-gradient(ellipse, var(--primary-glow) 0%, transparent 70%)",
             pointerEvents: "none",
           }}
         />
@@ -87,11 +77,11 @@ export default function HomePage() {
             gap: "0.5rem",
             padding: "0.375rem 1rem",
             borderRadius: "9999px",
-            background: "rgba(34,197,94,0.08)",
+            background: "var(--primary-glow)",
             border: "1px solid rgba(34,197,94,0.2)",
             fontSize: "0.8125rem",
             fontWeight: 500,
-            color: "var(--color-primary)",
+            color: "var(--primary)",
             marginBottom: "2rem",
           }}
         >
@@ -105,7 +95,7 @@ export default function HomePage() {
             fontSize: "clamp(3rem, 6vw, 5rem)",
             fontWeight: 400,
             lineHeight: 1.1,
-            color: "var(--color-foreground)",
+            color: "var(--fg)",
             marginBottom: "1.5rem",
             letterSpacing: "-0.02em",
           }}
@@ -113,7 +103,7 @@ export default function HomePage() {
           Turn Any Content Into{" "}
           <span
             style={{
-              background: "linear-gradient(135deg, #22c55e 0%, #4ade80 100%)",
+              background: "linear-gradient(135deg, var(--primary) 0%, #4ade80 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -123,23 +113,15 @@ export default function HomePage() {
           </span>
         </h1>
 
-        <p
-          style={{
-            fontSize: "1.125rem",
-            color: "var(--color-muted)",
-            lineHeight: 1.7,
-            maxWidth: "560px",
-            margin: "0 auto 3rem",
-          }}
-        >
+        <p style={{ fontSize: "1.125rem", color: "var(--muted)", lineHeight: 1.7, maxWidth: "560px", margin: "0 auto 3rem" }}>
           Instantly repurpose a single idea or raw transcript into high-performing Twitter
           threads, LinkedIn posts, blog articles, and captivating hooks.
         </p>
 
         <div
           style={{
-            background: "var(--color-surface)",
-            border: "1px solid var(--color-border)",
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
             borderRadius: "1rem",
             padding: "1.25rem",
             maxWidth: "700px",
@@ -147,31 +129,57 @@ export default function HomePage() {
             display: "flex",
             flexDirection: "column",
             gap: "0.875rem",
+            boxShadow: "var(--card-shadow)",
           }}
         >
           <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Paste your YouTube transcript, blog post, or rough idea here..."
-            rows={4}
+            rows={5}
             style={{
-              background: "transparent",
-              border: "none",
-              outline: "none",
-              resize: "none",
-              width: "100%",
-              color: "var(--color-foreground)",
+              background: "var(--input-bg)",
+              border: "1px solid var(--input-border)",
+              borderRadius: "0.75rem",
+              color: "var(--input-text)",
+              padding: "1rem 1.25rem",
               fontSize: "0.9375rem",
               lineHeight: 1.6,
               fontFamily: "Inter, sans-serif",
+              outline: "none",
+              resize: "none",
+              width: "100%",
+              minHeight: "200px",
+              transition: "border-color 0.2s ease, box-shadow 0.2s ease",
+            }}
+            onFocus={(e) => {
+              e.target.style.borderColor = "var(--input-border-focus)";
+              e.target.style.boxShadow = "0 0 0 3px rgba(34,197,94,0.08)";
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = "var(--input-border)";
+              e.target.style.boxShadow = "none";
             }}
           />
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <button
               onClick={handleGenerate}
               disabled={!text.trim()}
-              className="btn-primary"
-              style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                padding: "0.75rem 1.75rem",
+                borderRadius: "0.625rem",
+                fontWeight: 600,
+                fontSize: "0.9375rem",
+                color: "#000",
+                background: text.trim() ? "var(--primary)" : "var(--muted-2)",
+                border: "none",
+                cursor: text.trim() ? "pointer" : "not-allowed",
+                opacity: text.trim() ? 1 : 0.5,
+                transition: "all 0.2s ease",
+              }}
             >
               <Sparkles size={15} />
               Generate Magic
@@ -184,38 +192,32 @@ export default function HomePage() {
       {/* Features */}
       <section style={{ padding: "4rem 1.5rem", maxWidth: "1100px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-          <h2
-            style={{
-              fontFamily: "Instrument Serif, Georgia, serif",
-              fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
-              fontWeight: 400,
-              color: "var(--color-foreground)",
-              marginBottom: "0.75rem",
-            }}
-          >
+          <h2 style={{ fontFamily: "Instrument Serif, Georgia, serif", fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 400, color: "var(--fg)", marginBottom: "0.75rem" }}>
             Everything you need to go viral
           </h2>
-          <p style={{ color: "var(--color-muted)", fontSize: "1rem" }}>
-            One input. Five content formats. Infinite possibilities.
-          </p>
+          <p style={{ color: "var(--muted)", fontSize: "1rem" }}>One input. Five content formats. Infinite possibilities.</p>
         </div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            gap: "1rem",
-          }}
-        >
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1rem" }}>
           {features.map((f) => (
             <div
               key={f.title}
-              className="card-hover"
               style={{
-                background: "var(--color-surface)",
-                border: "1px solid var(--color-border)",
+                background: "var(--surface)",
+                border: "1px solid var(--border)",
                 borderRadius: "0.875rem",
                 padding: "1.5rem",
+                transition: "border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease",
+                cursor: "default",
+                boxShadow: "var(--card-shadow)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLDivElement).style.borderColor = "var(--border-light)";
+                (e.currentTarget as HTMLDivElement).style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLDivElement).style.borderColor = "var(--border)";
+                (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
               }}
             >
               <div
@@ -223,21 +225,19 @@ export default function HomePage() {
                   width: "2.5rem",
                   height: "2.5rem",
                   borderRadius: "0.625rem",
-                  background: "rgba(34,197,94,0.08)",
+                  background: "var(--primary-glow)",
                   border: "1px solid rgba(34,197,94,0.15)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  color: "var(--color-primary)",
+                  color: "var(--primary)",
                   marginBottom: "1rem",
                 }}
               >
                 {f.icon}
               </div>
-              <h3 style={{ fontWeight: 600, fontSize: "0.9375rem", color: "var(--color-foreground)", marginBottom: "0.375rem" }}>
-                {f.title}
-              </h3>
-              <p style={{ fontSize: "0.875rem", color: "var(--color-muted)", lineHeight: 1.6 }}>{f.desc}</p>
+              <h3 style={{ fontWeight: 600, fontSize: "0.9375rem", color: "var(--fg)", marginBottom: "0.375rem" }}>{f.title}</h3>
+              <p style={{ fontSize: "0.875rem", color: "var(--muted)", lineHeight: 1.6 }}>{f.desc}</p>
             </div>
           ))}
         </div>
@@ -246,79 +246,46 @@ export default function HomePage() {
       {/* Pricing */}
       <section style={{ padding: "4rem 1.5rem 6rem", maxWidth: "1100px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-          <h2
-            style={{
-              fontFamily: "Instrument Serif, Georgia, serif",
-              fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
-              fontWeight: 400,
-              color: "var(--color-foreground)",
-              marginBottom: "0.75rem",
-            }}
-          >
+          <h2 style={{ fontFamily: "Instrument Serif, Georgia, serif", fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 400, color: "var(--fg)", marginBottom: "0.75rem" }}>
             Simple, transparent pricing
           </h2>
-          <p style={{ color: "var(--color-muted)", fontSize: "1rem" }}>
-            Start free. Upgrade when you&apos;re ready.
-          </p>
+          <p style={{ color: "var(--muted)", fontSize: "1rem" }}>Start free. Upgrade when you&apos;re ready.</p>
         </div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-            gap: "1rem",
-            maxWidth: "900px",
-            margin: "0 auto",
-          }}
-        >
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem", maxWidth: "900px", margin: "0 auto" }}>
           {pricingPlans.map((plan) => (
             <div
               key={plan.name}
               style={{
-                background: plan.highlighted ? "rgba(34,197,94,0.04)" : "var(--color-surface)",
-                border: `1px solid ${plan.highlighted ? "rgba(34,197,94,0.3)" : "var(--color-border)"}`,
+                background: plan.highlighted ? "var(--primary-glow)" : "var(--surface)",
+                border: `1px solid ${plan.highlighted ? "rgba(34,197,94,0.3)" : "var(--border)"}`,
                 borderRadius: "0.875rem",
                 padding: "2rem",
                 position: "relative",
+                boxShadow: "var(--card-shadow)",
               }}
             >
               {plan.highlighted && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "-0.75rem",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    background: "var(--color-primary)",
-                    color: "#000",
-                    fontSize: "0.75rem",
-                    fontWeight: 700,
-                    padding: "0.25rem 0.875rem",
-                    borderRadius: "9999px",
-                  }}
-                >
+                <div style={{ position: "absolute", top: "-0.75rem", left: "50%", transform: "translateX(-50%)", background: "var(--primary)", color: "#000", fontSize: "0.75rem", fontWeight: 700, padding: "0.25rem 0.875rem", borderRadius: "9999px" }}>
                   MOST POPULAR
                 </div>
               )}
               <div style={{ marginBottom: "1.5rem" }}>
-                <p style={{ fontSize: "0.875rem", fontWeight: 600, color: "var(--color-muted)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.5rem" }}>
-                  {plan.name}
-                </p>
+                <p style={{ fontSize: "0.875rem", fontWeight: 600, color: "var(--muted)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.5rem" }}>{plan.name}</p>
                 <div style={{ display: "flex", alignItems: "baseline", gap: "0.25rem" }}>
-                  <span style={{ fontSize: "2.5rem", fontWeight: 700, color: "var(--color-foreground)" }}>{plan.price}</span>
-                  <span style={{ color: "var(--color-muted)", fontSize: "0.875rem" }}>{plan.period}</span>
+                  <span style={{ fontSize: "2.5rem", fontWeight: 700, color: "var(--fg)" }}>{plan.price}</span>
+                  <span style={{ color: "var(--muted)", fontSize: "0.875rem" }}>{plan.period}</span>
                 </div>
               </div>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.625rem", marginBottom: "1.75rem" }}>
                 {plan.features.map((f) => (
-                  <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.875rem", color: "var(--color-foreground)" }}>
-                    <span style={{ color: "var(--color-primary)", fontSize: "1rem" }}>✓</span>
+                  <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.875rem", color: "var(--fg)" }}>
+                    <span style={{ color: "var(--primary)", fontSize: "1rem" }}>✓</span>
                     {f}
                   </li>
                 ))}
               </ul>
               <button
-                className={plan.highlighted ? "btn-primary" : ""}
                 style={{
                   width: "100%",
                   padding: "0.75rem",
@@ -326,10 +293,16 @@ export default function HomePage() {
                   fontWeight: 600,
                   fontSize: "0.9375rem",
                   cursor: "pointer",
-                  border: plan.highlighted ? "none" : "1px solid var(--color-border)",
-                  background: plan.highlighted ? "var(--color-primary)" : "transparent",
-                  color: plan.highlighted ? "#000" : "var(--color-foreground)",
+                  border: plan.highlighted ? "none" : "1px solid var(--border)",
+                  background: plan.highlighted ? "var(--primary)" : "transparent",
+                  color: plan.highlighted ? "#000" : "var(--fg)",
                   transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  if (!plan.highlighted) (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--border-light)";
+                }}
+                onMouseLeave={(e) => {
+                  if (!plan.highlighted) (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--border)";
                 }}
               >
                 {plan.cta}
@@ -340,20 +313,12 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer
-        style={{
-          borderTop: "1px solid var(--color-border)",
-          padding: "2rem 1.5rem",
-          textAlign: "center",
-          color: "var(--color-muted)",
-          fontSize: "0.875rem",
-        }}
-      >
+      <footer style={{ borderTop: "1px solid var(--border)", padding: "2rem 1.5rem", textAlign: "center", color: "var(--muted)", fontSize: "0.875rem" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
-          <Sparkles size={13} color="#22c55e" />
-          <span style={{ fontWeight: 600, color: "var(--color-foreground)" }}>RepurposeAI</span>
+          <Sparkles size={13} color="var(--primary)" />
+          <span style={{ fontWeight: 600, color: "var(--fg)" }}>GenovaAI</span>
         </div>
-        <p>© 2026 RepurposeAI. Crafted with precision.</p>
+        <p>© 2026 GenovaAI. Crafted with precision.</p>
       </footer>
     </div>
   );

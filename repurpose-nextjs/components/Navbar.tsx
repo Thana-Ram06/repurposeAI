@@ -2,12 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Sparkles, LogOut, LogIn, History, Wand2 } from "lucide-react";
+import { Sparkles, LogOut, LogIn, History, Wand2, Sun, Moon } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
+import { useTheme } from "@/lib/theme-context";
 
 export default function Navbar() {
   const { user, signInWithGoogle, signOutUser } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
+
+  const isLight = theme === "light";
 
   return (
     <nav
@@ -15,10 +19,13 @@ export default function Navbar() {
         position: "sticky",
         top: 0,
         zIndex: 50,
-        borderBottom: "1px solid var(--color-border)",
-        background: "rgba(8, 12, 18, 0.9)",
+        borderBottom: "1px solid var(--border)",
+        background: isLight
+          ? "rgba(248,250,252,0.92)"
+          : "rgba(8,12,18,0.92)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
+        transition: "background 0.2s ease, border-color 0.2s ease",
       }}
     >
       <div
@@ -32,21 +39,14 @@ export default function Navbar() {
           justifyContent: "space-between",
         }}
       >
-        <Link
-          href="/"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            textDecoration: "none",
-          }}
-        >
+        {/* Logo */}
+        <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.5rem", textDecoration: "none" }}>
           <div
             style={{
               width: "2rem",
               height: "2rem",
               borderRadius: "0.5rem",
-              background: "var(--color-primary)",
+              background: "var(--primary)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -54,17 +54,12 @@ export default function Navbar() {
           >
             <Sparkles size={14} color="#000" />
           </div>
-          <span
-            style={{
-              fontWeight: 700,
-              fontSize: "1rem",
-              color: "var(--color-foreground)",
-            }}
-          >
-            RepurposeAI
+          <span style={{ fontWeight: 700, fontSize: "1rem", color: "var(--fg)" }}>
+            GenovaAI
           </span>
         </Link>
 
+        {/* Nav links + actions */}
         <div style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
           <Link
             href="/generate"
@@ -77,7 +72,7 @@ export default function Navbar() {
               fontSize: "0.875rem",
               fontWeight: 500,
               textDecoration: "none",
-              color: pathname === "/generate" ? "var(--color-primary)" : "var(--color-muted)",
+              color: pathname === "/generate" ? "var(--primary)" : "var(--muted)",
               background: pathname === "/generate" ? "rgba(34,197,94,0.08)" : "transparent",
               transition: "all 0.15s ease",
             }}
@@ -97,7 +92,7 @@ export default function Navbar() {
               fontSize: "0.875rem",
               fontWeight: 500,
               textDecoration: "none",
-              color: pathname === "/history" ? "var(--color-primary)" : "var(--color-muted)",
+              color: pathname === "/history" ? "var(--primary)" : "var(--muted)",
               background: pathname === "/history" ? "rgba(34,197,94,0.08)" : "transparent",
               transition: "all 0.15s ease",
             }}
@@ -106,15 +101,46 @@ export default function Navbar() {
             History
           </Link>
 
-          <div style={{ width: "1px", height: "1.25rem", background: "var(--color-border)", margin: "0 0.5rem" }} />
+          {/* Divider */}
+          <div style={{ width: "1px", height: "1.25rem", background: "var(--border)", margin: "0 0.375rem" }} />
 
+          {/* Theme toggle */}
+          <button
+            onClick={toggleTheme}
+            title={isLight ? "Switch to dark mode" : "Switch to light mode"}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "2.125rem",
+              height: "2.125rem",
+              borderRadius: "0.5rem",
+              background: "transparent",
+              border: "1px solid var(--border)",
+              color: "var(--muted)",
+              cursor: "pointer",
+              transition: "all 0.15s ease",
+              flexShrink: 0,
+            }}
+          >
+            {isLight ? <Moon size={15} /> : <Sun size={15} />}
+          </button>
+
+          {/* Auth */}
           {user ? (
-            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-              <img
-                src={user.photoURL ?? ""}
-                alt={user.displayName ?? "User"}
-                style={{ width: "1.875rem", height: "1.875rem", borderRadius: "50%", border: "1px solid var(--color-border)" }}
-              />
+            <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginLeft: "0.375rem" }}>
+              {user.photoURL && (
+                <img
+                  src={user.photoURL}
+                  alt={user.displayName ?? "User"}
+                  style={{
+                    width: "1.875rem",
+                    height: "1.875rem",
+                    borderRadius: "50%",
+                    border: "1px solid var(--border)",
+                  }}
+                />
+              )}
               <button
                 onClick={signOutUser}
                 style={{
@@ -125,9 +151,9 @@ export default function Navbar() {
                   borderRadius: "0.5rem",
                   fontSize: "0.875rem",
                   fontWeight: 500,
-                  color: "var(--color-muted)",
+                  color: "var(--muted)",
                   background: "transparent",
-                  border: "1px solid var(--color-border)",
+                  border: "1px solid var(--border)",
                   cursor: "pointer",
                   transition: "all 0.15s ease",
                 }}
@@ -148,10 +174,11 @@ export default function Navbar() {
                 fontSize: "0.875rem",
                 fontWeight: 600,
                 color: "#000",
-                background: "var(--color-primary)",
+                background: "var(--primary)",
                 border: "none",
                 cursor: "pointer",
                 transition: "all 0.15s ease",
+                marginLeft: "0.375rem",
               }}
             >
               <LogIn size={14} />
