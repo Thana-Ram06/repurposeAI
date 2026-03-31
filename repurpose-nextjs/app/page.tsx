@@ -14,32 +14,6 @@ const features = [
   { icon: <FileText size={20} />, title: "Any Tone", desc: "Casual, Professional, or Viral — your content, your voice." },
 ];
 
-const pricingPlans = [
-  {
-    name: "Free",
-    price: "$0",
-    period: "/month",
-    features: ["5 generations/month", "All content types", "Copy & export"],
-    cta: "Get Started",
-    highlighted: false,
-  },
-  {
-    name: "Pro",
-    price: "$19",
-    period: "/month",
-    features: ["Unlimited generations", "Priority AI model", "Generation history", "API access"],
-    cta: "Start Free Trial",
-    highlighted: true,
-  },
-  {
-    name: "Agency",
-    price: "$49",
-    period: "/month",
-    features: ["Everything in Pro", "Team access (5 seats)", "Custom tones", "Dedicated support"],
-    cta: "Contact Sales",
-    highlighted: false,
-  },
-];
 
 export default function HomePage() {
   const [text, setText] = useState("");
@@ -190,7 +164,7 @@ export default function HomePage() {
       </section>
 
       {/* Features */}
-      <section style={{ padding: "4rem 1.5rem", maxWidth: "1100px", margin: "0 auto" }}>
+      <section style={{ padding: "4rem 1.5rem 6rem", maxWidth: "1100px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "3rem" }}>
           <h2 style={{ fontFamily: "Instrument Serif, Georgia, serif", fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 400, color: "var(--fg)", marginBottom: "0.75rem" }}>
             Everything you need to go viral
@@ -238,75 +212,6 @@ export default function HomePage() {
               </div>
               <h3 style={{ fontWeight: 600, fontSize: "0.9375rem", color: "var(--fg)", marginBottom: "0.375rem" }}>{f.title}</h3>
               <p style={{ fontSize: "0.875rem", color: "var(--muted)", lineHeight: 1.6 }}>{f.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section style={{ padding: "4rem 1.5rem 6rem", maxWidth: "1100px", margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-          <h2 style={{ fontFamily: "Instrument Serif, Georgia, serif", fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 400, color: "var(--fg)", marginBottom: "0.75rem" }}>
-            Simple, transparent pricing
-          </h2>
-          <p style={{ color: "var(--muted)", fontSize: "1rem" }}>Start free. Upgrade when you&apos;re ready.</p>
-        </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem", maxWidth: "900px", margin: "0 auto" }}>
-          {pricingPlans.map((plan) => (
-            <div
-              key={plan.name}
-              style={{
-                background: plan.highlighted ? "var(--primary-glow)" : "var(--surface)",
-                border: `1px solid ${plan.highlighted ? "rgba(34,197,94,0.3)" : "var(--border)"}`,
-                borderRadius: "0.875rem",
-                padding: "2rem",
-                position: "relative",
-                boxShadow: "var(--card-shadow)",
-              }}
-            >
-              {plan.highlighted && (
-                <div style={{ position: "absolute", top: "-0.75rem", left: "50%", transform: "translateX(-50%)", background: "var(--primary)", color: "#000", fontSize: "0.75rem", fontWeight: 700, padding: "0.25rem 0.875rem", borderRadius: "9999px" }}>
-                  MOST POPULAR
-                </div>
-              )}
-              <div style={{ marginBottom: "1.5rem" }}>
-                <p style={{ fontSize: "0.875rem", fontWeight: 600, color: "var(--muted)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.5rem" }}>{plan.name}</p>
-                <div style={{ display: "flex", alignItems: "baseline", gap: "0.25rem" }}>
-                  <span style={{ fontSize: "2.5rem", fontWeight: 700, color: "var(--fg)" }}>{plan.price}</span>
-                  <span style={{ color: "var(--muted)", fontSize: "0.875rem" }}>{plan.period}</span>
-                </div>
-              </div>
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.625rem", marginBottom: "1.75rem" }}>
-                {plan.features.map((f) => (
-                  <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.875rem", color: "var(--fg)" }}>
-                    <span style={{ color: "var(--primary)", fontSize: "1rem" }}>✓</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <button
-                style={{
-                  width: "100%",
-                  padding: "0.75rem",
-                  borderRadius: "0.625rem",
-                  fontWeight: 600,
-                  fontSize: "0.9375rem",
-                  cursor: "pointer",
-                  border: plan.highlighted ? "none" : "1px solid var(--border)",
-                  background: plan.highlighted ? "var(--primary)" : "transparent",
-                  color: plan.highlighted ? "#000" : "var(--fg)",
-                  transition: "all 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  if (!plan.highlighted) (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--border-light)";
-                }}
-                onMouseLeave={(e) => {
-                  if (!plan.highlighted) (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--border)";
-                }}
-              >
-                {plan.cta}
-              </button>
             </div>
           ))}
         </div>
