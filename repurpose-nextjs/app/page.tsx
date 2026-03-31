@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { Sparkles, Zap, FileText, Twitter, Linkedin, Instagram, BookOpen, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 
@@ -220,7 +221,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer style={{ borderTop: "1px solid var(--border)", padding: "2rem 1.5rem", textAlign: "center", color: "var(--muted)", fontSize: "0.875rem" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
-          <Sparkles size={13} color="var(--primary)" />
+          <Image src="/logo.png" alt="ZenoAI" width={20} height={20} style={{ borderRadius: "0.25rem" }} />
           <span style={{ fontWeight: 600, color: "var(--fg)" }}>ZenoAI</span>
         </div>
         <p>© 2026 ZenoAI. Crafted with precision.</p>

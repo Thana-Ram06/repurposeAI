@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Sparkles, LogOut, LogIn, History, Wand2, Sun, Moon } from "lucide-react";
+import Image from "next/image";
+import { LogOut, LogIn, History, Wand2, Sun, Moon } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useTheme } from "@/lib/theme-context";
 
@@ -41,19 +42,13 @@ export default function Navbar() {
       >
         {/* Logo */}
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.5rem", textDecoration: "none" }}>
-          <div
-            style={{
-              width: "2rem",
-              height: "2rem",
-              borderRadius: "0.5rem",
-              background: "var(--primary)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Sparkles size={14} color="#000" />
-          </div>
+          <Image
+            src="/logo.png"
+            alt="ZenoAI Logo"
+            width={32}
+            height={32}
+            style={{ borderRadius: "0.375rem" }}
+          />
           <span style={{ fontWeight: 700, fontSize: "1rem", color: "var(--fg)" }}>
             ZenoAI
           </span>
