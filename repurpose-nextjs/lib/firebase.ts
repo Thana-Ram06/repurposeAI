@@ -15,10 +15,16 @@ const firebaseConfig = {
 };
 
 function getFirebaseApp(): FirebaseApp | null {
-  if (!apiKey) return null;
+  if (!apiKey) {
+    if (typeof window !== "undefined") {
+      console.warn("[ZenoAI] Firebase API key missing — auth disabled.");
+    }
+    return null;
+  }
   try {
     return getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-  } catch {
+  } catch (e) {
+    console.error("[ZenoAI] Firebase init error:", e);
     return null;
   }
 }
@@ -27,6 +33,10 @@ const app = getFirebaseApp();
 
 export const auth: Auth | null = app ? getAuth(app) : null;
 export const db: Firestore | null = app ? getFirestore(app) : null;
+
 export const googleProvider: GoogleAuthProvider = new GoogleAuthProvider();
+googleProvider.addScope("email");
+googleProvider.addScope("profile");
+googleProvider.setCustomParameters({ prompt: "select_account" });
 
 export default app;
