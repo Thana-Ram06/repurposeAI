@@ -33,11 +33,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [signInError, setSignInError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!auth) {
-      setLoading(false);
-      console.warn("[ZenoAI] Auth not initialized — check Firebase env vars in Vercel.");
-      return;
-    }
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser);
       setLoading(false);
@@ -46,10 +41,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signInWithGoogle = async () => {
-    if (!auth) {
-      setSignInError("Auth not configured. Check Firebase environment variables.");
-      return;
-    }
     setSignInError(null);
     try {
       await signInWithPopup(auth, googleProvider);
@@ -58,13 +49,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       console.error("[ZenoAI] Sign in error:", err);
 
       if (err.code === "auth/popup-blocked") {
-        setSignInError("Popup was blocked by your browser. Please allow popups for this site.");
-      } else if (err.code === "auth/popup-closed-by-user") {
-        // User closed popup — not an error
+        setSignInError("Popup was blocked. Please allow popups for this site and try again.");
+      } else if (err.code === "auth/popup-closed-by-user" || err.code === "auth/cancelled-popup-request") {
+        // User dismissed — not an error
       } else if (err.code === "auth/unauthorized-domain") {
-        setSignInError("This domain is not authorised in Firebase. Add it to Firebase Console → Authentication → Authorised domains.");
-      } else if (err.code === "auth/cancelled-popup-request") {
-        // Ignore — happens when popup opens twice
+        setSignInError("Domain not authorised in Firebase. Go to Firebase Console → Authentication → Authorised domains and add this site's URL.");
       } else {
         setSignInError(err.message ?? "Sign in failed. Please try again.");
       }
@@ -72,7 +61,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signOutUser = async () => {
-    if (!auth) return;
     try {
       await signOut(auth);
     } catch (error) {
